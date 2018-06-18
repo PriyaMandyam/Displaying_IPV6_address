@@ -1,0 +1,22 @@
+import sys
+import netifaces as netifaces
+# Network interfaces
+for a in netifaces.interfaces():
+    addr = netifaces.ifaddresses(a)
+    print "#Interface: %s" % a
+    try:
+        #  a4 indicates ipv4 addresses
+        for a4 in addr[netifaces.AF_INET]:
+            bits = sum([bin(int(x)).count("1") for x in a4['netmask'].split(".") ] )
+            print "%s/%s" % (a4['addr'],bits)
+    except:
+        # Printing ipv4 addresses in CIDR format
+        print "# ipv4 address"
+    try:
+        # a6 indicates ipv6 addresses
+        for a6 in addr[netifaces.AF_INET6]:
+            bits = (a6['netmask'].split("/"))[1]
+            print "%s/%s" % (a6['addr'], bits)
+    except:
+        # Printing ipv6 addresses in CIDR format
+        print "# ipv6 address"
