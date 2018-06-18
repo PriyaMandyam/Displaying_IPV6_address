@@ -1,3 +1,4 @@
+# displaying IPV4 and IPV6 addresses
 import sys
 import netifaces as netifaces
 # Network interfaces
